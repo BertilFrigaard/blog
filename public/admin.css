@@ -65,6 +65,7 @@ footer > hr {
 	font-size: 18px;
 	line-height: 25px;
 	margin-top: 18px;
+	position: relative;
 }
 
 input[type="submit"] {
@@ -88,4 +89,25 @@ input[type="submit"]:hover {
 
 .edit-border:focus {
 	outline: 1px dotted black;
+}
+
+img {
+	display: block;
+	position: relative;
+}
+
+img:hover {
+	cursor: pointer;
+}
+
+.resizer {
+	width: 10px;
+	height: 10px;
+	background-color: red;
+	position: absolute;
+	z-index: 2;
+}
+
+.resizer:hover {
+	cursor: nw-resize;
 }
