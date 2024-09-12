@@ -7,7 +7,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
 	res.render("home.ejs");
@@ -46,6 +46,9 @@ app.get("/getPost", (req, res) => {
 });
 
 app.post("/newPost", (req, res) => {
+	const images = req.body.images;
+	console.log(images);
+
 	const date = new Date();
 	const dateString =
 		date.getDate() + " / " + (date.getMonth() + 1) + " - " + date.getFullYear();
