@@ -55,10 +55,16 @@ footer > hr {
 	margin-top: 0;
 }
 
-.post > p {
+.post p {
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	font-size: 18px;
 	line-height: 25px;
+	margin: 0;
+}
+
+.post-content {
+	position: relative;
+	margin-top: 18px;
 }
 
 button {
