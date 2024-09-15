@@ -66,6 +66,7 @@ footer > hr {
 	line-height: 25px;
 	margin-top: 18px;
 	position: relative;
+	min-height: 200px;
 }
 
 input[type="submit"] {
@@ -103,11 +104,13 @@ img:hover {
 .resizer {
 	width: 10px;
 	height: 10px;
-	background-color: red;
+	background-color: gray;
+	border-top: 1px solid red;
+	border-bottom: 1px solid red;
 	position: absolute;
 	z-index: 2;
 }
 
 .resizer:hover {
-	cursor: nw-resize;
+	cursor: e-resize;
 }
