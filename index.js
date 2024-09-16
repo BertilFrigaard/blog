@@ -1,6 +1,10 @@
+require("dotenv").config();
+
 const express = require("express");
 const fs = require("fs");
 const bodyParser = require("body-parser");
+const bCrypt = require("bcrypt");
+const session = require("express-session");
 
 const postFolder = "posts";
 const app = express();
@@ -8,13 +12,22 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.json({ limit: "50mb" }));
+app.use(session({
+	secret: process.env.SECRET,
+	resave: false,
+	saveUninitialized: true
+}))
 
 app.get("/", (req, res) => {
 	res.render("home.ejs");
 });
 
-app.get("/admin", (req, res) => {
+app.get("/admin", isSignedIn, (req, res) => {
 	res.render("admin.ejs");
+});
+
+app.get("/admin", (req, res) => {
+	res.render("login.ejs");
 });
 
 app.get("/getImage", (req, res) => {
@@ -64,14 +77,18 @@ app.get("/getPost", (req, res) => {
 	});
 });
 
-app.post("/newPost", (req, res) => {
+app.post("/newPost", isSignedIn, (req, res) => {
 	const date = new Date();
 	const dateString =
 		date.getDate() + " / " + (date.getMonth() + 1) + " - " + date.getFullYear();
 	createNewPost(req.body.title, req.body.content, req.body.images, dateString);
 });
 
-app.post("/newImage", (req, res) => {
+app.post("/newPost", (req, res) => {
+	res.redirect("/");
+})
+
+app.post("/newImage", isSignedIn, (req, res) => {
 	let imageFiles = fs.readdirSync("images");
 	imageFiles.forEach((fileName) => {
 		if (fileName == req.body.UUID) {
@@ -84,6 +101,10 @@ app.post("/newImage", (req, res) => {
 		}
 	});
 });
+
+app.post("/newImage", (req, res) => {
+	res.redirect("/");
+})
 
 app.listen(3000, () => {
 	console.log("Now listening on port 3000");
@@ -99,3 +120,42 @@ function createNewPost(title, content, imagesT, date) {
 		}
 	});
 }
+
+//Session and login
+function isSignedIn(req, res, next) {
+	if (req.session.access) next();
+	else next('route');
+}
+
+app.post("/authenticate", async (req, res) => {
+	const username = req.body.username.toLowerCase();
+	if (username == process.env.ACC_USERNAME) {
+		if (bCrypt.compareSync(req.body.password, process.env.PASSWORDHASH)) {
+			req.session.regenerate((err) => {
+				if(err) {
+					res.sendStatus(500);
+					console.error(err);
+					return;
+				}
+
+				req.session.access = true;
+
+				req.session.save((err) => {
+					if(err) {
+						res.sendStatus(500);
+						console.error(err);
+						return;
+					} else {
+						res.sendStatus(200);
+						return;
+					}
+				})
+				
+			})
+		} else {
+			res.sendStatus(401);
+		}
+	} else {
+		res.sendStatus(401);
+	}
+})

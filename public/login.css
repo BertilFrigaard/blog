@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+	background-color: rgb(255, 234, 185);
+}
+
+header > h1 {
+	font-family: "Montserrat", serif;
+	font-weight: 800;
+	font-size: 50px;
+	text-align: center;
+	text-shadow: 2px 2px black;
+	color: rgb(67, 62, 62);
+	letter-spacing: 1px;
+}
+
+footer {
+	text-align: center;
+}
+
+footer > hr {
+	background-color: black;
+	width: 65%;
+	height: 1px;
+	border: none;
+	margin-top: 20px;
+}
+
+.post-container {
+	margin: auto;
+	width: 750px;
+}
+
+.post {
+	background-color: aliceblue;
+	font-family: "Montserrat", serif;
+	border: 1px solid black;
+	border-radius: 2px;
+	width: 750px;
+	margin: auto;
+	margin-top: 30px;
+	padding: 20px;
+}
+
+.post > h2 {
+	font-weight: 800;
+	font-size: 25px;
+	display: inline-block;
+	padding-bottom: 4px;
+	margin-bottom: 0;
+	border-bottom: 1px solid black;
+}
+
+#post-content {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: 18px;
+	line-height: 25px;
+	margin-top: 18px;
+	position: relative;
+}
+
+input[type="submit"] {
+	display: block;
+	margin: 20px auto;
+
+	background-color: aliceblue;
+	width: 120px;
+	height: 50px;
+	border: 1px solid black;
+	border-radius: 2px;
+	font-family: "Montserrat", serif;
+	font-weight: 400;
+	font-size: 15px;
+}
+
+input[type="submit"]:hover {
+	box-shadow: 0 0 10px rgb(111, 111, 111);
+	cursor: pointer;
+}
+
+.login-info {
+	display: block;
+    margin-top: 20px;
+
+	background-color: aliceblue;
+	min-width: 200px;
+	height: 30px;
+	border: 1px solid black;
+	border-radius: 2px;
+	font-family: "Montserrat", serif;
+	font-weight: 400;
+	font-size: 15px;
+}
+
+
+h3 {
+	font-weight: 300;
+	font-size: 15px;
+	border-top: 1px solid black;
+	display: inline-block;
+    color: rgb(255, 0, 0);
+	padding-top: 12px;
+	margin-top: 20px;
+}
