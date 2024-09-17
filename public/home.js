@@ -37,7 +37,6 @@ async function downloadImages(postJson) {
 		if (response.ok) {
 			let responseJson = await response.json();
 			imageMap.set(responseJson.UUID, responseJson.src);
-			console.log("image downloaded");
 		} else {
 			console.error("Something went wrong trying to fetch images");
 		}
@@ -47,7 +46,6 @@ async function downloadImages(postJson) {
 }
 
 function addPost(postJson) {
-	console.log("making post");
 	postSection = document.getElementById("post-container");
 
 	newPost = document.createElement("section");
@@ -63,17 +61,12 @@ function addPost(postJson) {
 	contentArr = postJson.content.split("\n");
 	let last = false;
 	contentArr.forEach((element) => {
-		console.log(element);
 		if (element != "\r" && element != "") {
 			last = false;
 			let txt = document.createElement("p");
 			txt.innerHTML = element;
 			newPostContent.appendChild(txt);
 		} else {
-			if (last) {
-				last = false;
-				return;
-			}
 			last = true;
 			let space = document.createElement("div");
 			space.classList.add("emptyParagraph");
@@ -103,8 +96,6 @@ function addPost(postJson) {
 }
 
 function createImage(postContainer, UUID, left, top, width) {
-	console.log("creating image");
-	console.log(width);
 	let image = document.createElement("img");
 	image.setAttribute("src", imageMap.get(UUID));
 	image.style.position = "absolute";
