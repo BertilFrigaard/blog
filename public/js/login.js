@@ -1,7 +1,7 @@
 document.getElementById("post-submit").addEventListener("click", async () => {
     const usernameField = document.getElementById("username");
     const passwordField = document.getElementById("password");
-    if (usernameField.value == "" || passwordField == "") {
+    if (usernameField.value == "" || passwordField.value == "") {
         setErrorText("Credentials required");
         return;
     }
@@ -15,7 +15,7 @@ document.getElementById("post-submit").addEventListener("click", async () => {
     request.send(JSON.stringify(jsonObj));
     request.onload = () => {
         if (request.status == 200) {
-            window.location.reload();
+            window.location.replace("/admin");
         } else {
             setErrorText("Incorrect credentials")
         }

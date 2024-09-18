@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(ADMIN) Bertil Frigaard</title>
+    <link rel="stylesheet" href="css/security.css">
+</head>
+<body>
+    <header>
+        <h1>Programmerings Blog</h1>
+    </header>
+    <section class="post-container">
+        <section class="post">
+            <h2 id="post-title">Change accout details</h2>
+            <div id="post-content">
+                <div id="login-grid">
+                    <div class="grid-element">
+                        <h3>Current credentials</h3>
+                        <input placeholder="Username" type="text" name="username-old" id="username-old" class="login-info">
+                        <input placeholder="Password" type="password" name="password-old" id="password-old" class="login-info">
+                        <h4 id="error-text-old"></h4>
+                    </div>
+                    <div class="grid-element">
+                        <h3>New credentials</h3>
+                        <input placeholder="Username" type="text" name="username-new" id="username-new" class="login-info">
+                        <input placeholder="Password" type="password" name="password-new" id="password-new" class="login-info">
+                        <h4 id="error-text-new"></h4>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        <input id="post-submit" type="submit" value="Update">
+</body>
+<script src="js/security.js"></script>
+</html>

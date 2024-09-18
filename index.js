@@ -1,9 +1,8 @@
 require("dotenv").config();
-
-const express = require("express");
 const fs = require("fs");
-const bodyParser = require("body-parser");
 const bCrypt = require("bcrypt");
+const express = require("express");
+const bodyParser = require("body-parser");
 const session = require("express-session");
 
 const postFolder = "posts";
@@ -24,6 +23,22 @@ app.get("/", (req, res) => {
 
 app.get("/admin", isSignedIn, (req, res) => {
 	res.render("admin.ejs");
+});
+
+app.get("/newPost", isSignedIn, (req, res) => {
+	res.render("newPost.ejs");
+});
+
+app.get("/security", isSignedIn, (req, res) => {
+	res.render("security.ejs");
+});
+
+app.get("/newPost", (req, res) => {
+	res.render("login.ejs");
+});
+
+app.get("/security", (req, res) => {
+	res.render("login.ejs");
 });
 
 app.get("/admin", (req, res) => {
@@ -127,35 +142,64 @@ function isSignedIn(req, res, next) {
 	else next('route');
 }
 
+function getCredentials() {
+	const file = fs.readFileSync("credentials.txt");
+	return JSON.parse(file);
+}
+
+function setCredentials(username, passwordHash) {
+	const json = {
+		account: username,
+		password: passwordHash
+	}
+	fs.writeFileSync("credentials.txt", JSON.stringify(json));
+}
+
+function checkCredentials(username, password) {
+	const credentials = getCredentials();
+	return username == credentials.account && 
+	bCrypt.compareSync(password, credentials.password);
+}
+
 app.post("/authenticate", async (req, res) => {
 	const username = req.body.username.toLowerCase();
-	if (username == process.env.ACC_USERNAME) {
-		if (bCrypt.compareSync(req.body.password, process.env.PASSWORDHASH)) {
-			req.session.regenerate((err) => {
+	if (checkCredentials(username, req.body.password)) {
+		req.session.regenerate((err) => {
+			if(err) {
+				res.sendStatus(500);
+				console.error(err);
+				return;
+			}
+
+			req.session.access = true;
+
+			req.session.save((err) => {
 				if(err) {
 					res.sendStatus(500);
 					console.error(err);
 					return;
+				} else {
+					res.sendStatus(200);
+					return;
 				}
-
-				req.session.access = true;
-
-				req.session.save((err) => {
-					if(err) {
-						res.sendStatus(500);
-						console.error(err);
-						return;
-					} else {
-						res.sendStatus(200);
-						return;
-					}
-				})
-				
 			})
-		} else {
-			res.sendStatus(401);
-		}
+			
+		})
 	} else {
 		res.sendStatus(401);
 	}
 })
+
+app.post("/changeCredentials", (req, res) => {
+	if(!checkCredentials(req.body.oldUsername.toLowerCase(), req.body.oldPassword)) {
+		res.sendStatus(401);
+		return;
+	}
+	const newUsername = req.body.newUsername.toLowerCase();
+	const newPasswordHash = bCrypt.hashSync(req.body.newPassword, 10);
+
+	setCredentials(newUsername, newPasswordHash);
+	
+	res.sendStatus(200);
+})
+

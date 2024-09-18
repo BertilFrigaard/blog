@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+	background-color: rgb(255, 234, 185);
+}
+
+header > h1 {
+	font-family: "Montserrat", serif;
+	font-weight: 800;
+	font-size: 50px;
+	text-align: center;
+	text-shadow: 2px 2px black;
+	color: rgb(67, 62, 62);
+	letter-spacing: 1px;
+    margin-bottom: 0;
+}
+
+footer {
+	text-align: center;
+}
+
+footer > hr {
+	background-color: black;
+	width: 65%;
+	height: 1px;
+	border: none;
+	margin-top: 20px;
+}
+
+#actions {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 350px;
+    margin: 0 auto;
+}
+
+#actions > a {
+	background-color: aliceblue;
+	font-family: "Montserrat", serif;
+	border: 1px solid black;
+	border-radius: 2px;
+	width: 100px;
+    height: 100px;
+	margin: auto;
+	margin-top: 30px;
+	padding: 20px;
+
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+#actions img {
+    width: 50px;
+    display: block;
+    margin: 10px auto 20px auto;
+}
+
+#actions > a:hover {
+	box-shadow: 0 0 10px rgb(111, 111, 111);
+	cursor: pointer;
+}
